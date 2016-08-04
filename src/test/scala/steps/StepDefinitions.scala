@@ -32,10 +32,12 @@ class StepDefinitions extends ScalaDsl with EN {
     assert(result == expectedResult, "Incorrect result")
   }
 
-  Then("""^Cucumber should parse "([^"]*)" as string parameter$"""){ (stringParam:String) =>
-
+  Then("""^Cucumber should parse "([^"]*)" as string parameter$"""){ (param:String) =>
+    assert(param.isInstanceOf[String])
   }
-  Then("""^Cucumber should parse (\d+) and (\d+) as integer parameters$"""){ (intParam1:Int, intParam2:Int) =>
+  Then("""^Cucumber should parse (\d+) and (\d+) as integer parameters$"""){ (firstNum:Int, secondNum:Int) =>
+    assert(firstNum.isInstanceOf[Int])
+    assert(secondNum.isInstanceOf[Int])
   }
   Then("""^Cucumber should parse ([\d\.]*) with custom transformer$"""){ (decimalParameter: MyBigDecimal @Transform(classOf[MyBigDecimalTransformer])) =>
     assert(decimalParameter.value == 2.2, "Unexpected result for decimal parameter")
